@@ -13,8 +13,20 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 database.ref().on("child_added", function (childSnap) {
-    console.log(childSnap.val().monthlyRate)
-    $("#table-data").append("<tr><td>" + childSnap.val().trainName + "</td><td>" + childSnap.val().destination + "</td><td>" + childSnap.val().frequency);
+    var trainFirst = moment(childSnap.val().firstTrain, "HH:mm").subtract(1, "years");
+    console.log(trainFirst);
+    var freq = childSnap.val().frequency;
+    console.log(childSnap.val());
+    var difference = moment().diff(trainFirst, "minutes");
+    console.log(difference);
+    var mod = difference % freq;
+    console.log(mod);
+    var minutesAway = freq - mod;
+    console.log(minutesAway);
+    var done = moment().add(minutesAway, "minutes").format("HH:mm");
+    console.log(done);
+
+    $("#table-data > tbody").append("<tr><td>" + childSnap.val().trainName + "</td><td>" + childSnap.val().destination + "</td><td>" + childSnap.val().frequency + "</td><td>" + done + "</td><td>" + minutesAway + "</tr></td>");
 
 });
 
@@ -22,8 +34,6 @@ $(document).ready(function () {
     $("#add-train-record").on("click", function () {
 
         event.preventDefault();
-
-        var dateFormat = "MM/DD/YYYY";
 
         var trainName = $("#trainName-input").val().trim();
         var destination = $("#destination-input").val().trim();
