@@ -1,0 +1,30 @@
+body {
+    background-color: gainsboro;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+#box {
+   outline: 5px solid green;
+   padding: 10px;
+   
+}
+
+#boxTwo {
+    outline: 5px solid green;
+    padding: 10px;
+ }
+
+ .container {
+     padding: 0px;
+ }
+
+ #jumbotronMain {
+    color: white;
+    background-image: url("background.jpeg");
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.text-center {
+    font-size: 35pt;
+ }
